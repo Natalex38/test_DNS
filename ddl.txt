@@ -1,0 +1,9 @@
+#ddl для создания таблицы
+CREATE TABLE test_DNS (
+    id SERIAL PRIMARY KEY,
+    name varchar(255),
+    code integer,
+    price integer,
+    countre varchar(50),
+    rowCreated timestamp DEFAULT NOW()
+);
