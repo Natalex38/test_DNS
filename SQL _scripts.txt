@@ -1,0 +1,10 @@
+WITH last_recod_test_DNS AS (
+   SELECT   code,
+            price,
+            countre,
+            MAX(rowCreated) OVER (PARTITION BY code) AS lastRowCreated
+   FROM test_DNS
+)
+SELECT countre, median(price) AS median_price
+FROM last_recod_test_DNS
+GROUP BY countre;
