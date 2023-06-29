@@ -1,10 +1,7 @@
-WITH last_recod_test_DNS AS (
-   SELECT   code,
-            price,
-            countre,
-            MAX(rowCreated) OVER (PARTITION BY code) AS lastRowCreated
-   FROM test_DNS
-)
-SELECT countre, median(price) AS median_price
-FROM last_recod_test_DNS
+SELECT countre, PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY Price) AS median_price
+FROM test_DNS
+where date(rowCreated) = (
+	select date(rowCreated)
+	FROM test_DNS
+	order by rowCreated desc limit 1)
 GROUP BY countre;
